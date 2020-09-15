@@ -9,7 +9,8 @@ struct Hash {
 }
 
 pub fn check_passwd(pwd: String, user: users::User) {
-    let contents: String = fs::read_to_string("/etc/shadow").unwrap();
+    let contents: String = fs::read_to_string("/etc/shadow")
+        .expect("yas: error when reading from /etc/shadow file (╯°□°）╯︵ ┻━┻");
     // iterate over each line of the file and filter it by the username of the invoking user.
 
     let items: Vec<&str> = contents
