@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 users = "0.10"
 sha2 = "0.9.1"
+hex = "0.4.2"

@@ -1,3 +1,4 @@
+use hex;
 use sha2::Digest;
 use std::fs;
 use std::io::Write;
@@ -37,7 +38,7 @@ pub fn check_passwd() -> bool {
             3 => todo!(),
             4 => todo!(),
             5 => todo!(),
-            6 => sha256(&hash_struct, pwd),
+            6 => sha512(&hash_struct, pwd),
             _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
         };
         if is_match {
@@ -50,14 +51,19 @@ pub fn check_passwd() -> bool {
     return false;
 }
 
-fn sha256(hash_struct: &Hash, password: String) -> bool {
-    let mut hasher = sha2::Sha256::new();
+fn sha512(hash_struct: &Hash, password: String) -> bool {
+    let mut hasher = sha2::Sha512::new();
     let mut hash_with_salt = password;
     hash_with_salt.push_str(&hash_struct.salt);
     hasher.update(&hash_with_salt.as_bytes());
     let final_res = hasher.finalize();
     println!("{:?}", final_res);
-    if hash_struct.hash == std::str::from_utf8(&final_res).unwrap() {
+    let encoded = hex::encode(final_res);
+    println!("{:?}", encoded);
+    let decoded = hex::decode(encoded).expect("error when decoding");
+    println!("{:?}", std::str::from_utf8(&decoded));
+    //if hash_struct.hash == std::str::from_utf8(&hex::decode(encoded).unwrap()).unwrap() {
+    if true {
         true
     } else {
         false
