@@ -1,0 +1,13 @@
+yas - a sudo replacement
+
+* What is this?
+    yas, or 'yet another sudo', is a sudo replacement, written in rust and without really any configuration options or not needed features.
+    It is intended for single user systems only, as it works out of the box, with no configuration needed, but you also can't restrict a user from running stuff as root.
+    In case you really do have a user, that shouldn't be allowed to run stuff as root, this isn't for you.
+
+* Installation
+    You can get yas from a few package managers, such as the aur or cargo
+
+    (this section is still todo, and the packages also don't exist yet .-.)
+
+* Usage:

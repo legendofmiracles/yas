@@ -6,7 +6,7 @@ fn main() {
     // returns and removes the first arguemtn, in this case which binary was ran
     args.remove(0);
     if args.len() == 0 || args[0] == "-h" || args[0] == "--help" {
-        eprintln!("yas - execute commands as the root user\n\nusage: yas <command>");
+        eprintln!("yas - execute commands as the root user\n\nusage: yas [-h/--help] <command>");
         std::process::exit(1);
     }
     let matches: bool = hash::check_passwd();
