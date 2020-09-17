@@ -3,7 +3,6 @@ use sha2::Digest;
 use std::fs;
 use std::io::Write;
 use users::{get_current_uid, get_user_by_uid};
-// #[derive(Copy)]
 struct Hash {
     format: u8,
     hash: String,
@@ -14,8 +13,8 @@ pub fn check_passwd() -> bool {
     let user = get_user_by_uid(get_current_uid()).unwrap();
     let contents: String = fs::read_to_string("/etc/shadow")
         .expect("yas: error when reading from /etc/shadow file (╯°□°）╯︵ ┻━┻");
-    // iterate over each line of the file and filter it by the username of the invoking user.
 
+    // iterate over each line of the file and filter it by the username of the invoking user.
     let items: Vec<&str> = contents
         .lines()
         .find(|x| x.contains(user.name().to_str().unwrap()))
@@ -62,8 +61,7 @@ fn sha512(hash_struct: &Hash, password: String) -> bool {
     println!("{:?}", encoded);
     let decoded = hex::decode(encoded).expect("error when decoding");
     println!("{:?}", std::str::from_utf8(&decoded));
-    //if hash_struct.hash == std::str::from_utf8(&hex::decode(encoded).unwrap()).unwrap() {
-    if true {
+    if hash_struct.hash == std::str::from_utf8(&decoded).unwrap() {
         true
     } else {
         false
