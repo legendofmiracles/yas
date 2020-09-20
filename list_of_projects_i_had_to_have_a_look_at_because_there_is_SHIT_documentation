@@ -1,0 +1,5 @@
+openssl
+sudo
+gnu coreutils (more specifically stty)
+quite a few rust libraries
+open doas

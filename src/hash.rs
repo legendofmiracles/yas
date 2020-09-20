@@ -1,5 +1,3 @@
-use hex;
-use sha2::Digest;
 use std::fs;
 use std::io::Write;
 use users::{get_current_uid, get_user_by_uid};
@@ -51,31 +49,19 @@ pub fn check_passwd() -> bool {
 }
 
 fn sha512(hash_struct: &Hash, password: String) -> bool {
-    let mut hasher = sha2::Sha512::new();
-    let mut hash_with_salt = password;
-    hash_with_salt.push_str(&hash_struct.salt);
-    hasher.update(&hash_with_salt.as_bytes());
-    let final_res = hasher.finalize();
-    println!("{:?}", final_res);
-    let encoded = hex::encode(final_res);
-    println!("{:?}", encoded);
-    let decoded = hex::decode(encoded).expect("error when decoding");
-    println!("{:?}", std::str::from_utf8(&decoded));
-    if hash_struct.hash == std::str::from_utf8(&decoded).unwrap() {
-        true
-    } else {
-        false
-    }
+    let shadow = format!(
+        "{}${}${}",
+        hash_struct.format, hash_struct.salt, hash_struct.hash
+    );
+    return pwhash::unix::verify(password, &shadow);
 }
 
 fn ask_pass(user: &str) -> String {
-    let mut input = String::new();
-    print!("yas: password for user {}: ", user);
-    std::io::stdout()
-        .flush()
-        .expect("yas: unable to flush stdout (╯°□°）╯︵ ┻━┻");
-    std::io::stdin()
-        .read_line(&mut input)
-        .expect("error: unable to read user input (╯°□°）╯︵ ┻━┻");
-    input
+    let pass = rpassword::prompt_password_stderr(&format!(
+        "{}yas: password for user {}: ",
+        String::from_utf8(vec![7]).unwrap_or_default(),
+        user
+    ))
+    .unwrap();
+    return pass;
 }

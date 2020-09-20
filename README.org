@@ -1,8 +1,9 @@
-yas - a sudo replacement
-
+yas - a (kind of) sudo replacement
+(entire readme is still work in progress)
 * What is this?
-    yas, or 'yet another sudo', is a sudo replacement, written in rust and without really any configuration options or not needed features.
+    yas, or 'yet another sudo', is kind of a sudo replacement, written in rust and without really any configuration options or not needed features.
     It is intended for single user systems only, as it works out of the box, with no configuration needed, but you also can't restrict a user from running stuff as root.
+    yas also can't run commands as any other user, but root.
     In case you really do have a user, that shouldn't be allowed to run stuff as root, this isn't for you.
 
 * Installation
@@ -11,3 +12,16 @@ yas - a sudo replacement
     (this section is still todo, and the packages also don't exist yet .-.)
 
 * Usage:
+    #+BEGIN_SRC
+    yas - execute commands as the root user
+
+    usage: yas [-h/--help] <command> <arguments for the command, this can be chained infinite>
+    #+END_SRC
+    As one can see, there aren't really any options for yas.
+    99% of the people who use sudo (or opendoas), just use it with default configuration and the default options, why also would you need a flag, to edit a file, if nobody ever uses that, and instead just runs `sudo <editor> <file>`
+
+* Security
+    yas will ask for the password whenever you want to run a command privileged.
+    Currently, there isn't any timeout programmed, but this feature is planned.
+
+    yas doesn't ship with so many security features, as sudo, so if you want the most secure root commmand executor, you should also use sudo
