@@ -4,7 +4,7 @@ pub mod hash;
 pub mod tui;
 fn main() {
     let mut args: Vec<String> = std::env::args().collect();
-    // returns and removes the first arguemtn, in this case which binary was ran
+    // returns the first argument, in this case which binary was ran
     args.remove(0);
     if args.len() == 0 || args[0] == "-h" || args[0] == "--help" {
         eprintln!("yas - execute commands as the root user\n\nusage: yas [-h/--help] <command> <arguments for the command, this can be chained infinite>");

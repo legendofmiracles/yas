@@ -27,13 +27,13 @@ pub fn check_passwd() -> bool {
         salt: hash_non_struct[2].to_string(),
     };
     if cfg!(feature = "tui") {
-        return tui::tui(hash_struct, user);
+        return tui(hash_struct, user);
     } else {
         return no_tui(hash_struct, user);
     }
 }
 
-pub fn sha512(hash_struct: &Hash, password: String) -> bool {
+pub fn decode(hash_struct: &Hash, password: String) -> bool {
     let shadow = format!(
         "${}${}${}",
         hash_struct.format, hash_struct.salt, hash_struct.hash
@@ -55,7 +55,7 @@ fn no_tui(hash_struct: Hash, user: users::User) -> bool {
     for i in 0..3 {
         let pwd = ask_pass(user.name().to_str().unwrap());
         let is_match = match hash_struct.format {
-            1..=6 => sha512(&hash_struct, pwd),
+            1..=6 => decode(&hash_struct, pwd),
             _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
         };
         if is_match {
@@ -66,4 +66,28 @@ fn no_tui(hash_struct: Hash, user: users::User) -> bool {
     }
     eprintln!("yas: three wrong passwords. Quitting...");
     return false;
+}
+
+fn tui(hash_struct: Hash, user: users::User) -> bool {
+    use cursive::view::{Nameable, Resizable};
+    use cursive::views::{Dialog, EditView};
+    let mut siv = cursive::default();
+    siv.add_layer(
+        Dialog::new()
+            .title(format!(
+                "Enter password for user {}",
+                user.name().to_str().unwrap()
+            ))
+            .padding_lrtb(1, 1, 1, 0)
+            .content(
+                EditView::new().on_submit(move |s: &mut cursive::Cursive, password: &str| {
+                    let is_match = match hash_struct.format {
+                        1..=6 => decode(&hash_struct, password.to_string()),
+                        _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
+                    };
+                }),
+            ),
+    );
+    siv.run();
+    return true;
 }
