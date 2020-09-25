@@ -1,7 +1,8 @@
+// mod tui;
 use std::fs;
 use std::io::Write;
 use users::{get_current_uid, get_user_by_uid};
-struct Hash {
+pub struct Hash {
     format: u8,
     hash: String,
     salt: String,
@@ -27,7 +28,6 @@ pub fn check_passwd() -> bool {
         salt: hash_non_struct[2].to_string(),
     };
     if cfg!(feature = "tui") {
-        mod tui;
         return tui::tui(hash_struct, user);
     } else {
         return no_tui(hash_struct, user);
