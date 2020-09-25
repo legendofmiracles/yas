@@ -1,7 +1,6 @@
-// mod tui;
 use std::fs;
-use std::io::Write;
 use users::{get_current_uid, get_user_by_uid};
+mod tui;
 pub struct Hash {
     format: u8,
     hash: String,
