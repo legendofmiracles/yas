@@ -1,6 +1,7 @@
 use std::os::unix::process::CommandExt;
 use std::process::Command;
-mod hash;
+pub mod hash;
+pub mod tui;
 fn main() {
     let mut args: Vec<String> = std::env::args().collect();
     // returns and removes the first arguemtn, in this case which binary was ran
@@ -20,7 +21,7 @@ fn main() {
     }
 }
 
-fn do_the_actual_thing(mut args: Vec<String>) {
+pub fn do_the_actual_thing(mut args: Vec<String>) {
     // if the command runs sucessfully, this program will immediately quit.
     // Otherwise the program will inform the user that it didn't start perfectly fine
     let command = Command::new(args.remove(0))
@@ -31,4 +32,5 @@ fn do_the_actual_thing(mut args: Vec<String>) {
         .raw_os_error();
     let error = std::io::Error::from_raw_os_error(command.unwrap());
     println!("yas: {} (╯°□°）╯︵ ┻━┻", error);
+    std::process::exit(1)
 }

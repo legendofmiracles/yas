@@ -1,10 +1,10 @@
+use crate::tui;
 use std::fs;
 use users::{get_current_uid, get_user_by_uid};
-mod tui;
 pub struct Hash {
-    format: u8,
-    hash: String,
-    salt: String,
+    pub format: u8,
+    pub hash: String,
+    pub salt: String,
 }
 
 pub fn check_passwd() -> bool {
@@ -33,7 +33,7 @@ pub fn check_passwd() -> bool {
     }
 }
 
-fn sha512(hash_struct: &Hash, password: String) -> bool {
+pub fn sha512(hash_struct: &Hash, password: String) -> bool {
     let shadow = format!(
         "${}${}${}",
         hash_struct.format, hash_struct.salt, hash_struct.hash
