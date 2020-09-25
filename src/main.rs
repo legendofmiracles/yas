@@ -25,6 +25,8 @@ fn do_the_actual_thing(mut args: Vec<String>) {
     // Otherwise the program will inform the user that it didn't start perfectly fine
     let command = Command::new(args.remove(0))
         .args(args)
+        .env("HOME", std::env::var("HOME").unwrap_or_default())
+        .uid(0)
         .exec()
         .raw_os_error();
     let error = std::io::Error::from_raw_os_error(command.unwrap());

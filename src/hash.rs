@@ -26,31 +26,15 @@ pub fn check_passwd() -> bool {
         hash: hash_non_struct[3].to_string(),
         salt: hash_non_struct[2].to_string(),
     };
-
-    for i in 0..3 {
-        let pwd = ask_pass(user.name().to_str().unwrap());
-        let is_match = match hash_struct.format {
-            1 => todo!(),
-            2 => todo!(),
-            3 => todo!(),
-            4 => todo!(),
-            5 => todo!(),
-            6 => sha512(&hash_struct, pwd),
-            _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
-        };
-        if is_match {
-            return true;
-        } else if i != 3 {
-            eprintln!("yas: wrong password. Nice try.");
-        }
+    if cfg!() {
+    } else {
+        return no_tui(hash_struct, user);
     }
-    eprintln!("yas: three wrong passwords. Quitting...");
-    return false;
 }
 
 fn sha512(hash_struct: &Hash, password: String) -> bool {
     let shadow = format!(
-        "{}${}${}",
+        "${}${}${}",
         hash_struct.format, hash_struct.salt, hash_struct.hash
     );
     return pwhash::unix::verify(password, &shadow);
@@ -64,4 +48,21 @@ fn ask_pass(user: &str) -> String {
     ))
     .unwrap();
     return pass;
+}
+
+fn no_tui(hash_struct: Hash, user: users::User) -> bool {
+    for i in 0..3 {
+        let pwd = ask_pass(user.name().to_str().unwrap());
+        let is_match = match hash_struct.format {
+            1..=6 => sha512(&hash_struct, pwd),
+            _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
+        };
+        if is_match {
+            return true;
+        } else if i != 3 {
+            eprintln!("yas: wrong password. Nice try.");
+        }
+    }
+    eprintln!("yas: three wrong passwords. Quitting...");
+    return false;
 }

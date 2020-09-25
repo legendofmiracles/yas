@@ -8,5 +8,8 @@ edition = "2018"
 
 [dependencies]
 users = "0.10"
-pwhash = {path = "/home/legendofmiracles/programming/rust/pwhash"}
+pwhash = ""
 rpassword = "5.0"
+cursive = {optional = true, version: }
+
+[features]
