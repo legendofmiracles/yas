@@ -26,7 +26,9 @@ pub fn check_passwd() -> bool {
         hash: hash_non_struct[3].to_string(),
         salt: hash_non_struct[2].to_string(),
     };
-    if cfg!() {
+    if cfg!(feature = "tui") {
+        mod tui;
+        return tui::tui(hash_struct, user);
     } else {
         return no_tui(hash_struct, user);
     }
