@@ -26,11 +26,15 @@ pub fn check_passwd() -> bool {
         hash: hash_non_struct[3].to_string(),
         salt: hash_non_struct[2].to_string(),
     };
-    if cfg!(feature = "tui") {
-        return tui(hash_struct, user);
-    } else {
-        return no_tui(hash_struct, user);
-    }
+    // if cfg!(feature = "tui") {
+    #[cfg(feature = "tui")]
+    return tui(hash_struct, user);
+    #[cfg(not(feature = "tui"))]
+    return no_tui(hash_struct, user);
+    //////////////
+    // } else { //
+    // }        //
+    //////////////
 }
 
 pub fn decode(hash_struct: &Hash, password: String) -> bool {
@@ -67,7 +71,7 @@ fn no_tui(hash_struct: Hash, user: users::User) -> bool {
     eprintln!("yas: three wrong passwords. Quitting...");
     return false;
 }
-
+#[cfg(feature = "tui")]
 fn tui(hash_struct: Hash, user: users::User) -> bool {
     use cursive::view::{Nameable, Resizable};
     use cursive::views::{Dialog, EditView};
@@ -85,7 +89,16 @@ fn tui(hash_struct: Hash, user: users::User) -> bool {
                         1..=6 => decode(&hash_struct, password.to_string()),
                         _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
                     };
-                }),
+                    if is_match {
+                        println!("YES");
+                    } else {
+                        println!("NO");
+                    }
+                }), /////////////////////////////////////////////////////////////////////////
+                    // .on_edit_mut(|s: &cursive::Cursive, password: &mut str, _: usize| { //
+                    //     password = "LOLSU"                                              //
+                    // }),                                                                 //
+                    /////////////////////////////////////////////////////////////////////////
             ),
     );
     siv.run();
