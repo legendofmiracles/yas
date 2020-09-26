@@ -7,7 +7,10 @@ fn main() {
     // returns the first argument, in this case which binary was ran
     args.remove(0);
     if args.len() == 0 || args[0] == "-h" || args[0] == "--help" {
-        eprintln!("yas - execute commands as the root user\n\nusage: yas [-h/--help] <command> <arguments for the command, this can be chained infinite>");
+        eprintln!("yas - execute commands as the root user\n\nusage: yas [-h/--help] [-v/--version] <command> <arguments for the command, this can be chained infinite>");
+        std::process::exit(1);
+    } else if args.len() == 0 && args[0] == "-v" || args[0] == "--version" {
+        eprintln!("yas 0.1.0");
         std::process::exit(1);
     }
     let matches: bool = hash::check_passwd();

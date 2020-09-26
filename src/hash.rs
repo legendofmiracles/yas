@@ -26,15 +26,10 @@ pub fn check_passwd() -> bool {
         hash: hash_non_struct[3].to_string(),
         salt: hash_non_struct[2].to_string(),
     };
-    // if cfg!(feature = "tui") {
     #[cfg(feature = "tui")]
     return tui(hash_struct, user);
     #[cfg(not(feature = "tui"))]
     return no_tui(hash_struct, user);
-    //////////////
-    // } else { //
-    // }        //
-    //////////////
 }
 
 pub fn decode(hash_struct: &Hash, password: String) -> bool {
@@ -76,6 +71,7 @@ fn tui(hash_struct: Hash, user: users::User) -> bool {
     use cursive::view::{Nameable, Resizable};
     use cursive::views::{Dialog, EditView};
     let mut siv = cursive::default();
+    let mut is_true: bool;
     siv.add_layer(
         Dialog::new()
             .title(format!(
@@ -90,7 +86,7 @@ fn tui(hash_struct: Hash, user: users::User) -> bool {
                         _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
                     };
                     if is_match {
-                        println!("YES");
+                        is_true = true;
                     } else {
                         println!("NO");
                     }
