@@ -23,12 +23,11 @@ fn main() {
     if path.exists() {
         let meta = fs::metadata(path).unwrap();
         let date = meta.created().unwrap();
-        println!("{}", meta.permissions().mode());
         // as long as 5 minutes haven't passed yet, yas doesn't require a passsword
         // And also checking a ton of cases, that could mean that the file is has been tampered with
         if date.elapsed().unwrap() < std::time::Duration::new(300, 0)
             && meta.modified().unwrap().elapsed().unwrap() != date.elapsed().unwrap()
-            && meta.permissions().mode() == 311
+            && meta.permissions().mode() == 33152
         {
             requires = false;
         }
@@ -55,7 +54,7 @@ pub fn do_the_actual_thing(mut args: Vec<String>, user: String) {
     // Otherwise the program will inform the user that it didn't start perfectly fine
     let command = Command::new(args.remove(0))
         .args(args)
-        .env("HOME", std::env::var("HOME").unwrap_or_default())
+        // .env("HOME", std::env::var("HOME").unwrap_or_default())
         .uid(0)
         .exec()
         .raw_os_error();
@@ -66,9 +65,13 @@ pub fn do_the_actual_thing(mut args: Vec<String>, user: String) {
 
 fn cache(user: String) -> std::io::Result<()> {
     fs::create_dir_all("/var/db/yas")?;
-    fs::metadata("/var/db/yas")?.permissions().set_mode(400);
-    fs::remove_file(format!("/var/db/yas/{}", user))?;
+    let mut perms = fs::metadata("/var/db/yas")?.permissions();
+    perms.set_mode(600);
+    std::fs::set_permissions("/var/db/yas", perms)?;
+    fs::remove_file(format!("/var/db/yas/{}", user)).unwrap_or_default();
     let f = fs::File::create(format!("/var/db/yas/{}", user))?;
-    f.metadata()?.permissions().set_mode(400);
+    let mut perms = f.metadata()?.permissions();
+    perms.set_mode(0o600);
+    std::fs::set_permissions(format!("/var/db/yas/{}", user), perms)?;
     Ok(())
 }
