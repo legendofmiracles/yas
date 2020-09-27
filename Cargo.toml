@@ -11,9 +11,9 @@ license = "MIT"
 
 [dependencies]
 users = "0.10"
-pwhash = ""
+pwhash = "0.3.1"
 rpassword = "5.0"
-cursive = {optional = true, version = ""}
+cursive = {optional = true, version = "0.15.0"}
 
 [features]
 tui = ["cursive"]
