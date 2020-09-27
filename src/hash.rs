@@ -1,21 +1,18 @@
-use crate::tui;
 use std::fs;
-use users::{get_current_uid, get_user_by_uid};
 pub struct Hash {
     pub format: u8,
     pub hash: String,
     pub salt: String,
 }
 
-pub fn check_passwd() -> bool {
-    let user = get_user_by_uid(get_current_uid()).unwrap();
+pub fn check_passwd(args: &Vec<String>, user: String) -> bool {
     let contents: String = fs::read_to_string("/etc/shadow")
         .expect("yas: error when reading from /etc/shadow file (╯°□°）╯︵ ┻━┻");
 
     // iterate over each line of the file and filter it by the username of the invoking user.
     let items: Vec<&str> = contents
         .lines()
-        .find(|x| x.contains(user.name().to_str().unwrap()))
+        .find(|x| x.contains(&user))
         .unwrap()
         .split(":")
         .collect();
@@ -27,7 +24,7 @@ pub fn check_passwd() -> bool {
         salt: hash_non_struct[2].to_string(),
     };
     #[cfg(feature = "tui")]
-    return tui(hash_struct, user);
+    return tui(hash_struct, &user, args.to_vec());
     #[cfg(not(feature = "tui"))]
     return no_tui(hash_struct, user);
 }
@@ -50,9 +47,9 @@ fn ask_pass(user: &str) -> String {
     return pass;
 }
 
-fn no_tui(hash_struct: Hash, user: users::User) -> bool {
+fn no_tui(hash_struct: Hash, user: String) -> bool {
     for i in 0..3 {
-        let pwd = ask_pass(user.name().to_str().unwrap());
+        let pwd = ask_pass(&user);
         let is_match = match hash_struct.format {
             1..=6 => decode(&hash_struct, pwd),
             _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
@@ -67,17 +64,12 @@ fn no_tui(hash_struct: Hash, user: users::User) -> bool {
     return false;
 }
 #[cfg(feature = "tui")]
-fn tui(hash_struct: Hash, user: users::User) -> bool {
-    use cursive::view::{Nameable, Resizable};
+fn tui(hash_struct: Hash, user: &String, args: Vec<String>) -> bool {
     use cursive::views::{Dialog, EditView};
     let mut siv = cursive::default();
-    let mut is_true: bool;
     siv.add_layer(
         Dialog::new()
-            .title(format!(
-                "Enter password for user {}",
-                user.name().to_str().unwrap()
-            ))
+            .title(format!("Enter password for user {}", user))
             .padding_lrtb(1, 1, 1, 0)
             .content(
                 EditView::new().on_submit(move |s: &mut cursive::Cursive, password: &str| {
@@ -86,7 +78,11 @@ fn tui(hash_struct: Hash, user: users::User) -> bool {
                         _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
                     };
                     if is_match {
-                        is_true = true;
+                        s.clear();
+                        s.refresh();
+                        s.quit();
+                        // This function quits the program and doesn't return control
+                        crate::do_the_actual_thing(args.to_vec(), user.to_string());
                     } else {
                         println!("NO");
                     }
@@ -98,5 +94,5 @@ fn tui(hash_struct: Hash, user: users::User) -> bool {
             ),
     );
     siv.run();
-    return true;
+    return false;
 }
