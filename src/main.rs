@@ -49,7 +49,9 @@ fn main() {
 }
 
 pub fn do_the_actual_thing(mut args: Vec<String>, user: String) {
-    cache(user).expect("failed to create cache");
+    if cache(user).is_err() {
+        eprintln!("failed to create cache");
+    }
     // if the command runs sucessfully, this program will immediately quit.
     // Otherwise the program will inform the user that it didn't start perfectly fine
     let command = Command::new(args.remove(0))

@@ -3,7 +3,10 @@ name = "yas"
 version = "0.1.0"
 authors = ["ur name <legendofmiracles@protonmail.com>"]
 edition = "2018"
-
+description = "A sudo replacement, written in rust"
+homepage = "https://github.com/alx365/yas"
+repository = "https://github.com/alx365/yas"
+license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
