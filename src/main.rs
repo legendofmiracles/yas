@@ -18,7 +18,7 @@ fn main() {
         std::process::exit(1);
     }
     let user = get_user_by_uid(get_current_uid()).unwrap();
-    let path = std::path::PathBuf::from(format!("/var/db/yas/{}", &user.name().to_str().unwrap()));
+    let path = std::path::PathBuf::from(format!("/var/db/yas/{}", users::get_current_uid()));
     let mut requires: bool = true;
     if path.exists() {
         let meta = fs::metadata(path).unwrap();
@@ -49,14 +49,12 @@ fn main() {
 }
 
 pub fn do_the_actual_thing(mut args: Vec<String>, user: String) {
-    if cache(user).is_err() {
-        eprintln!("failed to create cache");
-    }
+    cache(user).unwrap();
     // if the command runs sucessfully, this program will immediately quit.
     // Otherwise the program will inform the user that it didn't start perfectly fine
     let command = Command::new(args.remove(0))
         .args(args)
-        // .env("HOME", std::env::var("HOME").unwrap_or_default())
+        .env("HOME", "/root")
         .uid(0)
         .exec()
         .raw_os_error();
@@ -74,6 +72,6 @@ fn cache(user: String) -> std::io::Result<()> {
     let f = fs::File::create(format!("/var/db/yas/{}", users::get_current_uid()))?;
     let mut perms = f.metadata()?.permissions();
     perms.set_mode(0o600);
-    std::fs::set_permissions(format!("/var/db/yas/{}", user), perms)?;
+    std::fs::set_permissions(format!("/var/db/yas/{}", users::get_current_uid()), perms)?;
     Ok(())
 }
