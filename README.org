@@ -7,15 +7,39 @@ yas - a (kind of) sudo replacement
     In case you really do have a user, that shouldn't be allowed to run stuff as root, this isn't for you.
 
 * Installation
-    You can get yas from a few package managers, such as the aur or cargo
+** aur
 
-    (this section is still todo, and the packages also don't exist yet .-.)
+There is a aur package for the git version of yas, you can install it with a aur helper, or just git clone it manually:
+#+BEGIN_SRC shell
+git clone ssh://aur@aur.archlinux.org/yas-git.git
+cd yas-git
+makepkg -is
+#+END_SRC
 
+or:
+
+#+BEGIN_SRC
+yay -S yas-git
+#+END_SRC
+
+** crates.io (rusts package manager)
+
+Get it from crates.io with rusts cargo, by running:
+
+#+BEGIN_SRC shell
+cargo install yas
+#+END_SRC
+
+NOTE: The suid bit will not be set, you will manually have to set it for yas to work:
+
+#+BEGIN_SRC
+su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
+#+END_SRC
 * Usage:
     #+BEGIN_SRC
     yas - execute commands as the root user
 
-    usage: yas [-h/--help] <command> <arguments for the command, this can be chained infinite>
+    usage: yas [-h/--help] [-v/--version ]<command> <arguments for the command, this can be chained infinite>
     #+END_SRC
     As one can see, there aren't really any options for yas.
     99% of the people who use sudo (or opendoas), just use it with default configuration and the default options, why also would you need a flag, to edit a file, if nobody ever uses that, and instead just runs `sudo <editor> <file>`
