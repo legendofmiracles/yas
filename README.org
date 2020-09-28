@@ -7,9 +7,9 @@ yas - a (kind of) sudo replacement
     In case you really do have a user, that shouldn't be allowed to run stuff as root, this isn't for you.
 
 * Installation
-** aur
+** AUR
 
-There is a aur package for the git version of yas, you can install it with a aur helper, or just git clone it manually:
+There is a AUR package for the git version of yas, you can install it with a AUR helper, or just git clone it manually:
 #+BEGIN_SRC shell
 git clone ssh://aur@aur.archlinux.org/yas-git.git
 cd yas-git
@@ -35,6 +35,18 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
 #+BEGIN_SRC
 su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 #+END_SRC
+
+** From the release page
+1. Download it
+2. Change the owner to root
+#+BEGIN_SRC
+chmod root yas
+#+END_SRC
+3. Set the suid bit
+#+BEGIN_SRC
+chmod u+s yas
+#+END_SRC
+4. Put it somewhere in your path, such as /usr/bin
 
 * Usage:
     #+BEGIN_SRC

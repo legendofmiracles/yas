@@ -1,18 +1,19 @@
 
 # Table of Contents
 
-1.  [What is this?](#org0a6b07a)
-2.  [Installation](#orge1b02f0)
-    1.  [aur](#org6565075)
-    2.  [crates.io (rusts package manager)](#orgcf5f77f)
-3.  [Usage:](#orgc72a6c9)
-4.  [Security](#org5811b65)
+1.  [What is this?](#org2f8e450)
+2.  [Installation](#org3c5e5ed)
+    1.  [AUR](#org145cbf0)
+    2.  [crates.io (rusts package manager)](#orge68e905)
+    3.  [From the release page](#org0575a07)
+3.  [Usage:](#org1ebb9bb)
+4.  [Security](#org0746e4d)
 
 yas - a (kind of) sudo replacement
 (entire readme is still work in progress)
 
 
-<a id="org0a6b07a"></a>
+<a id="org2f8e450"></a>
 
 # What is this?
 
@@ -22,16 +23,16 @@ yas also can&rsquo;t run commands as any other user, but root.
 In case you really do have a user, that shouldn&rsquo;t be allowed to run stuff as root, this isn&rsquo;t for you.
 
 
-<a id="orge1b02f0"></a>
+<a id="org3c5e5ed"></a>
 
 # Installation
 
 
-<a id="org6565075"></a>
+<a id="org145cbf0"></a>
 
-## aur
+## AUR
 
-There is a aur package for the git version of yas, you can install it with a aur helper, or just git clone it manually:
+There is a AUR package for the git version of yas, you can install it with a AUR helper, or just git clone it manually:
 
     git clone ssh://aur@aur.archlinux.org/yas-git.git
     cd yas-git
@@ -42,7 +43,7 @@ or:
     yay -S yas-git
 
 
-<a id="orgcf5f77f"></a>
+<a id="orge68e905"></a>
 
 ## crates.io (rusts package manager)
 
@@ -55,7 +56,23 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 
-<a id="orgc72a6c9"></a>
+<a id="org0575a07"></a>
+
+## From the release page
+
+1.  Download it
+2.  Change the owner to root
+
+    chmod root yas
+
+1.  Set the suid bit
+
+    chmod u+s yas
+
+1.  Put it somewhere in your path, such as /usr/bin
+
+
+<a id="org1ebb9bb"></a>
 
 # Usage:
 
@@ -67,7 +84,7 @@ As one can see, there aren&rsquo;t really any options for yas.
 99% of the people who use sudo (or opendoas), just use it with default configuration and the default options, why also would you need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
 
 
-<a id="org5811b65"></a>
+<a id="org0746e4d"></a>
 
 # Security
 
