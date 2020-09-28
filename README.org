@@ -39,13 +39,17 @@ su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 ** From the release page
 1. Download it
 2. Change the owner to root
+
 #+BEGIN_SRC
 chmod root yas
 #+END_SRC
+
 3. Set the suid bit
+
 #+BEGIN_SRC
 chmod u+s yas
 #+END_SRC
+
 4. Put it somewhere in your path, such as /usr/bin
 
 * Usage:
