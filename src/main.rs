@@ -70,8 +70,8 @@ fn cache(user: String) -> std::io::Result<()> {
     let mut perms = fs::metadata("/var/db/yas")?.permissions();
     perms.set_mode(600);
     std::fs::set_permissions("/var/db/yas", perms)?;
-    fs::remove_file(format!("/var/db/yas/{}", user)).unwrap_or_default();
-    let f = fs::File::create(format!("/var/db/yas/{}", user))?;
+    fs::remove_file(format!("/var/db/yas/{}", users::get_current_uid())).unwrap_or_default();
+    let f = fs::File::create(format!("/var/db/yas/{}", users::get_current_uid()))?;
     let mut perms = f.metadata()?.permissions();
     perms.set_mode(0o600);
     std::fs::set_permissions(format!("/var/db/yas/{}", user), perms)?;
