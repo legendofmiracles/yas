@@ -63,12 +63,13 @@ chmod u+s yas
     Who would also need a flag, to edit a file, if nobody ever uses that, and instead just runs `sudo <editor> <file>`
 
 * Security
-#+BEGIN_QUOTE Mental Outlaw on youtube
-you could have a car that is very safe by just limiting its
-max speed to 20 miles an hour but I don't want to do that I want to have
-something that's more like a Lamborghini so maybe I'll throw in some airbags and
-it's gonna be mostly up to the driver to protect themselves and drive it safely
-#+END_QUOTE
+    #+BEGIN_QUOTE
+    you could have a car that is very safe by just limiting its
+    max speed to 20 miles an hour but I don't want to do that I want to have
+    something that's more like a Lamborghini so maybe I'll throw in some airbags and
+    it's gonna be mostly up to the driver to protect themselves and drive it safely
+    #+END_QUOTE
+    Mental Outlaw on youtube
 
     yas will ask for the password whenever you want to run a command privileged, unless you ran a command with yas in the last 5 minutes. Not however, that this is cross terminal, but i am planning on fixing that.
 

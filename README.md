@@ -1,19 +1,19 @@
 
 # Table of Contents
 
-1.  [What is this?](#org545d7b3)
-2.  [Installation](#org212c0f0)
-    1.  [AUR](#orgcd95674)
-    2.  [crates.io (rusts package manager)](#org2ebe32d)
-    3.  [From the release page](#orgbbcbf60)
-3.  [Usage:](#org8945750)
-4.  [Security](#org4bfd103)
+1.  [What is this?](#orgc03e8bf)
+2.  [Installation](#org1610c4b)
+    1.  [AUR](#org4fe5eda)
+    2.  [crates.io (rusts package manager)](#org6d756f8)
+    3.  [From the release page](#org6a5d33a)
+3.  [Usage:](#org77ec7f2)
+4.  [Security](#orgcaf6811)
 
 yas - a (kind of) sudo replacement
 (entire readme is still work in progress)
 
 
-<a id="org545d7b3"></a>
+<a id="orgc03e8bf"></a>
 
 # What is this?
 
@@ -23,12 +23,12 @@ yas also can&rsquo;t run commands as any other user, but root.
 In case you really do have a user, that shouldn&rsquo;t be allowed to run stuff as root, this isn&rsquo;t for you.
 
 
-<a id="org212c0f0"></a>
+<a id="org1610c4b"></a>
 
 # Installation
 
 
-<a id="orgcd95674"></a>
+<a id="org4fe5eda"></a>
 
 ## AUR
 
@@ -43,7 +43,7 @@ or:
     yay -S yas-git
 
 
-<a id="org2ebe32d"></a>
+<a id="org6d756f8"></a>
 
 ## crates.io (rusts package manager)
 
@@ -56,7 +56,7 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 
-<a id="orgbbcbf60"></a>
+<a id="org6a5d33a"></a>
 
 ## From the release page
 
@@ -72,7 +72,7 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
 1.  Put it somewhere in your path, such as /usr/bin
 
 
-<a id="org8945750"></a>
+<a id="org77ec7f2"></a>
 
 # Usage:
 
@@ -85,7 +85,7 @@ As one can see, there aren&rsquo;t really any options for yas.
 Who would also need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
 
 
-<a id="org4bfd103"></a>
+<a id="orgcaf6811"></a>
 
 # Security
 
@@ -93,6 +93,8 @@ Who would also need a flag, to edit a file, if nobody ever uses that, and instea
 > max speed to 20 miles an hour but I don&rsquo;t want to do that I want to have
 > something that&rsquo;s more like a Lamborghini so maybe I&rsquo;ll throw in some airbags and
 > it&rsquo;s gonna be mostly up to the driver to protect themselves and drive it safely
+
+Mental Outlaw on youtube
 
 yas will ask for the password whenever you want to run a command privileged, unless you ran a command with yas in the last 5 minutes. Not however, that this is cross terminal, but i am planning on fixing that.
 
