@@ -14,7 +14,7 @@ fn main() {
         eprintln!("yas - execute commands as the root user\n\nusage: yas [-h/--help] [-v/--version] <command> <arguments for the command, this can be chained infinite>");
         std::process::exit(1);
     } else if args[0] == "-v" || args[0] == "--version" {
-        eprintln!("yas 0.1.0");
+        eprintln!("yas 0.1.1");
         std::process::exit(1);
     }
     let user = get_user_by_uid(get_current_uid()).unwrap();
