@@ -35,6 +35,7 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
 #+BEGIN_SRC
 su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 #+END_SRC
+
 * Usage:
     #+BEGIN_SRC
     yas - execute commands as the root user
