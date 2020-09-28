@@ -1,19 +1,19 @@
 
 # Table of Contents
 
-1.  [What is this?](#org2f8e450)
-2.  [Installation](#org3c5e5ed)
-    1.  [AUR](#org145cbf0)
-    2.  [crates.io (rusts package manager)](#orge68e905)
-    3.  [From the release page](#org0575a07)
-3.  [Usage:](#org1ebb9bb)
-4.  [Security](#org0746e4d)
+1.  [What is this?](#org545d7b3)
+2.  [Installation](#org212c0f0)
+    1.  [AUR](#orgcd95674)
+    2.  [crates.io (rusts package manager)](#org2ebe32d)
+    3.  [From the release page](#orgbbcbf60)
+3.  [Usage:](#org8945750)
+4.  [Security](#org4bfd103)
 
 yas - a (kind of) sudo replacement
 (entire readme is still work in progress)
 
 
-<a id="org2f8e450"></a>
+<a id="org545d7b3"></a>
 
 # What is this?
 
@@ -23,12 +23,12 @@ yas also can&rsquo;t run commands as any other user, but root.
 In case you really do have a user, that shouldn&rsquo;t be allowed to run stuff as root, this isn&rsquo;t for you.
 
 
-<a id="org3c5e5ed"></a>
+<a id="org212c0f0"></a>
 
 # Installation
 
 
-<a id="org145cbf0"></a>
+<a id="orgcd95674"></a>
 
 ## AUR
 
@@ -43,7 +43,7 @@ or:
     yay -S yas-git
 
 
-<a id="orge68e905"></a>
+<a id="org2ebe32d"></a>
 
 ## crates.io (rusts package manager)
 
@@ -56,11 +56,11 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 
-<a id="org0575a07"></a>
+<a id="orgbbcbf60"></a>
 
 ## From the release page
 
-1.  Download it
+1.  Download a binary
 2.  Change the owner to root
 
     chmod root yas
@@ -72,7 +72,7 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
 1.  Put it somewhere in your path, such as /usr/bin
 
 
-<a id="org1ebb9bb"></a>
+<a id="org8945750"></a>
 
 # Usage:
 
@@ -81,15 +81,20 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     usage: yas [-h/--help] [-v/--version ]<command> <arguments for the command, this can be chained infinite>
 
 As one can see, there aren&rsquo;t really any options for yas.
-99% of the people who use sudo (or opendoas), just use it with default configuration and the default options, why also would you need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
+99% of the people who use sudo (or opendoas), just use it with default configuration and the default options.
+Who would also need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
 
 
-<a id="org0746e4d"></a>
+<a id="org4bfd103"></a>
 
 # Security
 
-yas will ask for the password whenever you want to run a command privileged.
-Currently, there isn&rsquo;t any timeout programmed, but this feature is planned.
+> you could have a car that is very safe by just limiting its
+> max speed to 20 miles an hour but I don&rsquo;t want to do that I want to have
+> something that&rsquo;s more like a Lamborghini so maybe I&rsquo;ll throw in some airbags and
+> it&rsquo;s gonna be mostly up to the driver to protect themselves and drive it safely
 
-yas doesn&rsquo;t ship with so many security features, as sudo, so if you want the most secure root commmand executor, you should also use sudo
+yas will ask for the password whenever you want to run a command privileged, unless you ran a command with yas in the last 5 minutes. Not however, that this is cross terminal, but i am planning on fixing that.
+
+yas doesn&rsquo;t ship with so many security features, as sudo, so if you want the most secure root commmand executor, you should also use sudo.
 
