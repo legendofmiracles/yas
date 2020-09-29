@@ -23,3 +23,10 @@ opt-level = 'z'  # Optimize for size.
 lto = true
 codegen-units = 1
 panic = 'abort'
+
+[package.metadata.deb]
+assets = [
+    ["target/release/yas", "usr/bin/", "4755"],
+    ["README.md", "usr/share/doc/yas/README", "644"],
+    ["LICENSE", "/usr/share/licenses/yas", "644"]
+]

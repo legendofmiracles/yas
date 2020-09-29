@@ -41,15 +41,17 @@ fn main() {
     if matches {
         // this function will either immediately quit the program (as seen in the comments below), or it will inform the user of a error and then quit,
         // thus making returning a error incredibly stupid
-        do_the_actual_thing(args, user.name().to_str().unwrap().to_string());
+        do_the_actual_thing(args);
     } else {
         // We exit here, because the bool only gets returned as false, if we had three wrong password inputs.
         std::process::exit(1);
     }
 }
 
-pub fn do_the_actual_thing(mut args: Vec<String>, user: String) {
-    cache(user).unwrap();
+pub fn do_the_actual_thing(mut args: Vec<String>) {
+    if cache().is_err() {
+        eprintln!("Failed to create cache file.");
+    }
     // if the command runs sucessfully, this program will immediately quit.
     // Otherwise the program will inform the user that it didn't start perfectly fine
     let command = Command::new(args.remove(0))
@@ -63,7 +65,7 @@ pub fn do_the_actual_thing(mut args: Vec<String>, user: String) {
     std::process::exit(1)
 }
 
-fn cache(user: String) -> std::io::Result<()> {
+fn cache() -> std::io::Result<()> {
     fs::create_dir_all("/var/db/yas")?;
     let mut perms = fs::metadata("/var/db/yas")?.permissions();
     perms.set_mode(600);

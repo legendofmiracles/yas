@@ -24,7 +24,7 @@ pub fn check_passwd(args: &Vec<String>, user: String) -> bool {
         salt: hash_non_struct[2].to_string(),
     };
     #[cfg(feature = "tui")]
-    return tui(hash_struct, &user, args.to_vec());
+    return tui(hash_struct, user, args.to_vec());
     #[cfg(not(feature = "tui"))]
     return no_tui(hash_struct, user);
 }
@@ -64,8 +64,8 @@ fn no_tui(hash_struct: Hash, user: String) -> bool {
     return false;
 }
 #[cfg(feature = "tui")]
-fn tui(hash_struct: Hash, user: &String, args: Vec<String>) -> bool {
-    use cursive::views::{Dialog, EditView};
+fn tui(hash_struct: Hash, user: String, args: Vec<String>) -> bool {
+    use cursive::views::{Dialog, EditView, TextView};
     let mut siv = cursive::default();
     siv.add_layer(
         Dialog::new()
@@ -78,13 +78,22 @@ fn tui(hash_struct: Hash, user: &String, args: Vec<String>) -> bool {
                         _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
                     };
                     if is_match {
-                        s.clear();
-                        s.refresh();
                         s.quit();
                         // This function quits the program and doesn't return control
-                        crate::do_the_actual_thing(args.to_vec(), user.to_string());
+                        // And i can't return a bool, because
+                        // 1. i would have to add a new mutable argument, which i can't because the lib only wants 2 args
+                        // 2. I can't return a boolean to the .submit function
+                        // Thats why we have to call the function on our own
+                        crate::do_the_actual_thing(args.to_vec());
                     } else {
-                        println!("NO");
+                        s.add_layer(
+                            Dialog::new()
+                                .title("Wrong password")
+                                .content(TextView::new("Wrong password. Nice try"))
+                                .button("retry", |s: &mut cursive::Cursive| -> _ {
+                                    s.pop_layer();
+                                }),
+                        );
                     }
                 }), /////////////////////////////////////////////////////////////////////////
                     // .on_edit_mut(|s: &cursive::Cursive, password: &mut str, _: usize| { //
