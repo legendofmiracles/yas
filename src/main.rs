@@ -1,7 +1,6 @@
 use std::os::unix::process::CommandExt;
 use std::process::Command;
 pub mod hash;
-pub mod tui;
 use std::fs;
 use std::os::unix::fs::PermissionsExt;
 use users::{get_current_uid, get_user_by_uid};

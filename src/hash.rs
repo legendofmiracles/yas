@@ -1,8 +1,8 @@
 use std::fs;
-pub struct Hash {
-    pub format: u8,
-    pub hash: String,
-    pub salt: String,
+struct Hash {
+    format: u8,
+    hash: String,
+    salt: String,
 }
 
 pub fn check_passwd(args: &Vec<String>, user: String) -> bool {
@@ -29,7 +29,7 @@ pub fn check_passwd(args: &Vec<String>, user: String) -> bool {
     return no_tui(hash_struct, user);
 }
 
-pub fn decode(hash_struct: &Hash, password: String) -> bool {
+fn decode(hash_struct: &Hash, password: String) -> bool {
     let shadow = format!(
         "${}${}${}",
         hash_struct.format, hash_struct.salt, hash_struct.hash
@@ -97,7 +97,7 @@ fn tui(hash_struct: Hash, user: String, args: Vec<String>) -> bool {
                     }
                 }), /////////////////////////////////////////////////////////////////////////
                     // .on_edit_mut(|s: &cursive::Cursive, password: &mut str, _: usize| { //
-                    //     password = "LOLSU"                                              //
+                    //     password = "test"                                               //
                     // }),                                                                 //
                     /////////////////////////////////////////////////////////////////////////
             ),
