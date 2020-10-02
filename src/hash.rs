@@ -72,36 +72,43 @@ fn tui(hash_struct: Hash, user: String, args: Vec<String>) -> bool {
             .title(format!("Enter password for user {}", user))
             .padding_lrtb(1, 1, 1, 0)
             .content(
-                EditView::new().on_submit(move |s: &mut cursive::Cursive, password: &str| {
-                    let is_match = match hash_struct.format {
-                        1..=6 => decode(&hash_struct, password.to_string()),
-                        _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
-                    };
-                    if is_match {
-                        s.quit();
-                        // This function quits the program and doesn't return control
-                        // And i can't return a bool, because
-                        // 1. i would have to add a new mutable argument, which i can't because the lib only wants 2 args
-                        // 2. I can't return a boolean to the .submit function
-                        // Thats why we have to call the function on our own
-                        crate::do_the_actual_thing(args.to_vec());
-                    } else {
-                        s.add_layer(
-                            Dialog::new()
-                                .title("Wrong password")
-                                .content(TextView::new("Wrong password. Nice try"))
-                                .button("retry", |s: &mut cursive::Cursive| -> _ {
-                                    s.pop_layer();
-                                }),
-                        );
-                    }
-                }), /////////////////////////////////////////////////////////////////////////
-                    // .on_edit_mut(|s: &cursive::Cursive, password: &mut str, _: usize| { //
-                    //     password = "test"                                               //
-                    // }),                                                                 //
-                    /////////////////////////////////////////////////////////////////////////
+                EditView::new().secret().on_submit(
+                    move |s: &mut cursive::Cursive, password: &str| {
+                        let is_match = match hash_struct.format {
+                            1..=6 => decode(&hash_struct, password.to_string()),
+                            _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
+                        };
+                        if is_match {
+                            s.set_user_data(true);
+                            s.quit();
+                        } else {
+                            s.add_layer(
+                                Dialog::new()
+                                    .title("Wrong password")
+                                    .content(TextView::new("Wrong password. Nice try"))
+                                    .button("retry", |s: &mut cursive::Cursive| -> _ {
+                                        s.pop_layer();
+                                    }),
+                            );
+                        }
+                    },
+                ), /////////////////////////////////////////////////////////////////////////
+                   // .on_edit_mut(|s: &cursive::Cursive, password: &mut str, _: usize| { //
+                   //     password = "LOLSU"                                              //
+                   // }),                                                                 //
+                   /////////////////////////////////////////////////////////////////////////
             ),
     );
     siv.run();
+    if *siv.user_data().unwrap() {
+        std::mem::drop(siv);
+        // This function quits the program and doesn't return control
+        // And i can't return a bool, because
+        // 1. i would have to add a new mutable argument, which i can't because the lib only wants 2 args
+        // 2. I can't return a boolean to the .submit function
+        // Thats why we have to call the function on our own
+        crate::do_the_actual_thing(args.to_vec());
+    }
+    // This only runs, if the above bool is false, as the code it calls in the statements, it definitly quits the program
     return false;
 }
