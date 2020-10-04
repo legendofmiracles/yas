@@ -744,7 +744,7 @@ checksum = "e71b85d8b1b8bfaf4b5c834187554d201a8cd621c2bbfa33efd41a3ecabd48b2"
 
 [[package]]
 name = "yas"
-version = "0.1.1"
+version = "1.0.0"
 dependencies = [
  "cursive",
  "pwhash",

@@ -13,7 +13,7 @@ fn main() {
         eprintln!("yas - execute commands as the root user\n\nusage: yas [-h/--help] [-v/--version] <command> <arguments for the command, this can be chained infinite>");
         std::process::exit(1);
     } else if args[0] == "-v" || args[0] == "--version" {
-        eprintln!("yas 0.1.1");
+        eprintln!("yas 1.0.0");
         std::process::exit(1);
     }
     let user = get_user_by_uid(get_current_uid()).unwrap();
@@ -88,30 +88,19 @@ pub fn do_the_actual_thing(mut args: Vec<String>) {
 }
 
 fn cache() -> std::io::Result<()> {
+    let path = format!(
+        "/var/db/yas/{}-{}",
+        users::get_current_uid(),
+        std::os::unix::process::parent_id()
+    );
     fs::create_dir_all("/var/db/yas")?;
     let mut perms = fs::metadata("/var/db/yas")?.permissions();
     perms.set_mode(600);
     std::fs::set_permissions("/var/db/yas", perms)?;
-    fs::remove_file(format!(
-        "/var/db/yas/{}-{}",
-        users::get_current_uid(),
-        std::os::unix::process::parent_id()
-    ))
-    .unwrap_or_default();
-    let f = fs::File::create(format!(
-        "/var/db/yas/{}-{}",
-        users::get_current_uid(),
-        std::os::unix::process::parent_id()
-    ))?;
+    fs::remove_file(&path).unwrap_or_default();
+    let f = fs::File::create(&path)?;
     let mut perms = f.metadata()?.permissions();
     perms.set_mode(0o600);
-    std::fs::set_permissions(
-        format!(
-            "/var/db/yas/{}-{}",
-            users::get_current_uid(),
-            std::os::unix::process::parent_id()
-        ),
-        perms,
-    )?;
+    std::fs::set_permissions(&path, perms)?;
     Ok(())
 }
