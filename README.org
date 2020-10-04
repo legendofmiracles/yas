@@ -38,6 +38,9 @@ su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 #+END_SRC
 
 ** From the release page
+If you get a libc error when running, you should compile it from source, this will happen espcially often with distros that are debian based.
+Or i could also start distributing builds, built with musl.
+
 1. Download a binary
 2. Change the owner to root
   
