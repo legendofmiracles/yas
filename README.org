@@ -10,13 +10,14 @@ yas - a (kind of) sudo replacement
 ** AUR
 
 There is a AUR package for the git version of yas, you can install it with a AUR helper, or just git clone it manually:
+Replace yas-git with yas-tui-git for a tui version.
 #+BEGIN_SRC shell
 git clone ssh://aur@aur.archlinux.org/yas-git.git
 cd yas-git
 makepkg -is
 #+END_SRC
 
-or:
+or (for yay):
 
 #+BEGIN_SRC
 yay -S yas-git
@@ -69,9 +70,6 @@ chmod u+s yas
     something that's more like a Lamborghini, so maybe I'll throw in some airbags and
     it's gonna be mostly up to the driver to protect themselves and drive it safely.
     #+END_QUOTE
-    Mental Outlaw on youtube
+    Mental Outlaw on YouTube
 
-    yas will ask for the password whenever you want to run a command privileged, unless you ran a command with yas in the last 5 minutes.
-    Note however, that this is cross terminal, but i am planning on fixing that.
-
-    yas doesn't ship with so many security features, as sudo, so if you want the most secure root commmand executor, you should also use sudo.
+   Yas really doesn't try, and doesn't want to be the most secure option, but instead rather the fastest (as in no added security delay) or the *bloat free* option.

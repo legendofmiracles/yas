@@ -17,7 +17,11 @@ fn main() {
         std::process::exit(1);
     }
     let user = get_user_by_uid(get_current_uid()).unwrap();
-    let path = std::path::PathBuf::from(format!("/var/db/yas/{}", users::get_current_uid()));
+    let path = std::path::PathBuf::from(format!(
+        "/var/db/yas/{}-{}",
+        users::get_current_uid(),
+        std::os::unix::process::parent_id()
+    ));
     let mut requires: bool = true;
     if path.exists() {
         let meta = fs::metadata(path).unwrap();
@@ -36,6 +40,25 @@ fn main() {
         matches = hash::check_passwd(&args, user.name().to_str().unwrap().to_string());
     } else {
         matches = true;
+    }
+    // This horrible segment, removes each cache file, that is older than 5 minutes, because i don't want 10000 cache files lying around, for everytime you used yas
+    let dir = fs::read_dir("/var/db/yas/");
+    if dir.is_ok() {
+        for i in dir.unwrap() {
+            let unwrapped_i = i.unwrap();
+            // I am so sorry for this horrible piece of code, but i have to do this :(
+            if unwrapped_i
+                .metadata()
+                .unwrap()
+                .created()
+                .unwrap()
+                .elapsed()
+                .unwrap()
+                > std::time::Duration::new(300, 0)
+            {
+                fs::remove_file(unwrapped_i.path()).expect("failed to remove");
+            }
+        }
     }
     if matches {
         // this function will either immediately quit the program (as seen in the comments below), or it will inform the user of a error and then quit,
@@ -69,10 +92,26 @@ fn cache() -> std::io::Result<()> {
     let mut perms = fs::metadata("/var/db/yas")?.permissions();
     perms.set_mode(600);
     std::fs::set_permissions("/var/db/yas", perms)?;
-    fs::remove_file(format!("/var/db/yas/{}", users::get_current_uid())).unwrap_or_default();
-    let f = fs::File::create(format!("/var/db/yas/{}", users::get_current_uid()))?;
+    fs::remove_file(format!(
+        "/var/db/yas/{}-{}",
+        users::get_current_uid(),
+        std::os::unix::process::parent_id()
+    ))
+    .unwrap_or_default();
+    let f = fs::File::create(format!(
+        "/var/db/yas/{}-{}",
+        users::get_current_uid(),
+        std::os::unix::process::parent_id()
+    ))?;
     let mut perms = f.metadata()?.permissions();
     perms.set_mode(0o600);
-    std::fs::set_permissions(format!("/var/db/yas/{}", users::get_current_uid()), perms)?;
+    std::fs::set_permissions(
+        format!(
+            "/var/db/yas/{}-{}",
+            users::get_current_uid(),
+            std::os::unix::process::parent_id()
+        ),
+        perms,
+    )?;
     Ok(())
 }
