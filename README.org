@@ -61,13 +61,16 @@ chmod u+s yas
 2. Clone the source
 3. build it in release mode, either with tui or not
 
-``
+#+BEGIN_SRC
+
 git clone https://github.com/alx365/yas.git
 
 cargo build --release # if with tui, add the `--features "tui"` flag
 
 strip target/release/yas
-``
+
+
+#+END_SRC
 
 4. Change the owner to root
 
