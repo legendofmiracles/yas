@@ -15,6 +15,13 @@ I am pretty sure, that yas won't work on BSD systems, as the password hash file 
 It also doesn't work yet on macos, as macos also doesn't have a /etc/shadow file
 
 * Installation
+
+If you get a libc error when running, you should compile it from source, this will happen espcially often with distros that are debian based.
+
+Or you can get the release from the release page with `-musl`, note that there isn't a tui build for that, because ncurses fails to compile. You will have to compile it manually then.
+
+And the builds for musl will probably often be out of date...
+
 ** AUR
 
 There is a AUR package for the git version of yas, you can install it with a AUR helper, or just git clone it manually:
@@ -46,8 +53,6 @@ su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 #+END_SRC
 
 ** From the release page
-If you get a libc error when running, you should compile it from source, this will happen espcially often with distros that are debian based.
-Or you can get the release from the release page with `-musl`, note that there isn't a tui build for that, because ncurses fails to compile. You will have to compile it manually then.
 
 1. Download a binary
 2. Change the owner to root

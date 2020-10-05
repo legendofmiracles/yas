@@ -1,21 +1,21 @@
 
 # Table of Contents
 
-1.  [What is this?](#org510e603)
-    1.  [Why only a &rsquo;kind of&rsquo; replacement?](#orgcb8aa1d)
-    2.  [Platform support](#orgef6a516)
-2.  [Installation](#org25ae88f)
-    1.  [AUR](#org6afe503)
-    2.  [crates.io (rusts package manager)](#orgd3db12d)
-    3.  [From the release page](#orgcb48fcc)
-    4.  [compile manually](#org75ae67d)
-3.  [Usage:](#org62c02c4)
-4.  [Security](#orgace761a)
+1.  [What is this?](#orgd887c14)
+    1.  [Why only a &rsquo;kind of&rsquo; replacement?](#org2ade6d2)
+    2.  [Platform support](#orgb470e3a)
+2.  [Installation](#org1d46cb8)
+    1.  [AUR](#orgb424199)
+    2.  [crates.io (rusts package manager)](#org243dacb)
+    3.  [From the release page](#org69ae546)
+    4.  [compile manually](#orgaced8bc)
+3.  [Usage:](#org5ae4e21)
+4.  [Security](#org4e5838d)
 
 yas - a (kind of) sudo replacement
 
 
-<a id="org510e603"></a>
+<a id="orgd887c14"></a>
 
 # What is this?
 
@@ -23,14 +23,14 @@ yas, or &rsquo;yet another sudo&rsquo;, is kind of a sudo replacement, written i
 yas also can&rsquo;t run commands as any other user, but root.
 
 
-<a id="orgcb8aa1d"></a>
+<a id="org2ade6d2"></a>
 
 ## Why only a &rsquo;kind of&rsquo; replacement?
 
 Yas is only thought for single user systems, not for systems with 3+ users, where some should have more perms, and some less.
 
 
-<a id="orgef6a516"></a>
+<a id="orgb470e3a"></a>
 
 ## Platform support
 
@@ -41,12 +41,18 @@ I am pretty sure, that yas won&rsquo;t work on BSD systems, as the password hash
 It also doesn&rsquo;t work yet on macos, as macos also doesn&rsquo;t have a /etc/shadow file
 
 
-<a id="org25ae88f"></a>
+<a id="org1d46cb8"></a>
 
 # Installation
 
+If you get a libc error when running, you should compile it from source, this will happen espcially often with distros that are debian based.
 
-<a id="org6afe503"></a>
+Or you can get the release from the release page with \`-musl\`, note that there isn&rsquo;t a tui build for that, because ncurses fails to compile. You will have to compile it manually then.
+
+And the builds for musl will probably often be out of date&#x2026;
+
+
+<a id="orgb424199"></a>
 
 ## AUR
 
@@ -62,7 +68,7 @@ or (for yay):
     yay -S yas-git
 
 
-<a id="orgd3db12d"></a>
+<a id="org243dacb"></a>
 
 ## crates.io (rusts package manager)
 
@@ -75,12 +81,9 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 
-<a id="orgcb48fcc"></a>
+<a id="org69ae546"></a>
 
 ## From the release page
-
-If you get a libc error when running, you should compile it from source, this will happen espcially often with distros that are debian based.
-Or you can get the release from the release page with \`-musl\`, note that there isn&rsquo;t a tui build for that, because ncurses fails to compile. You will have to compile it manually then.
 
 1.  Download a binary
 2.  Change the owner to root
@@ -94,7 +97,7 @@ Or you can get the release from the release page with \`-musl\`, note that there
 1.  Put it somewhere in your path, such as /usr/bin
 
 
-<a id="org75ae67d"></a>
+<a id="orgaced8bc"></a>
 
 ## compile manually
 
@@ -117,7 +120,7 @@ Or you can get the release from the release page with \`-musl\`, note that there
     chmod u+s yas
 
 
-<a id="org62c02c4"></a>
+<a id="org5ae4e21"></a>
 
 # Usage:
 
@@ -130,7 +133,7 @@ As one can see, there aren&rsquo;t really any options for yas.
 Who would also need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
 
 
-<a id="orgace761a"></a>
+<a id="org4e5838d"></a>
 
 # Security
 
