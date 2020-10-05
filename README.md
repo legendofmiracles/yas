@@ -1,21 +1,21 @@
 
 # Table of Contents
 
-1.  [What is this?](#orgce73af9)
-    1.  [Why only a &rsquo;kind of&rsquo; replacement?](#org3cd6b27)
-    2.  [Platform support](#org26cb271)
-2.  [Installation](#orge23286a)
-    1.  [AUR](#org7f6b4a7)
-    2.  [crates.io (rusts package manager)](#org3ac9e43)
-    3.  [From the release page](#orgbb4d594)
-    4.  [compile manually](#org1720fc7)
-3.  [Usage:](#org5353508)
-4.  [Security](#orgbb5eab1)
+1.  [What is this?](#org510e603)
+    1.  [Why only a &rsquo;kind of&rsquo; replacement?](#orgcb8aa1d)
+    2.  [Platform support](#orgef6a516)
+2.  [Installation](#org25ae88f)
+    1.  [AUR](#org6afe503)
+    2.  [crates.io (rusts package manager)](#orgd3db12d)
+    3.  [From the release page](#orgcb48fcc)
+    4.  [compile manually](#org75ae67d)
+3.  [Usage:](#org62c02c4)
+4.  [Security](#orgace761a)
 
 yas - a (kind of) sudo replacement
 
 
-<a id="orgce73af9"></a>
+<a id="org510e603"></a>
 
 # What is this?
 
@@ -23,28 +23,30 @@ yas, or &rsquo;yet another sudo&rsquo;, is kind of a sudo replacement, written i
 yas also can&rsquo;t run commands as any other user, but root.
 
 
-<a id="org3cd6b27"></a>
+<a id="orgcb8aa1d"></a>
 
 ## Why only a &rsquo;kind of&rsquo; replacement?
 
 Yas is only thought for single user systems, not for systems with 3+ users, where some should have more perms, and some less.
 
 
-<a id="org26cb271"></a>
+<a id="orgef6a516"></a>
 
 ## Platform support
 
-Has only been tested on linux, for problems please open a issue.
+Has only been tested on linux, for problems/interest on other platforms please open a issue.
+
 I am pretty sure, that yas won&rsquo;t work on BSD systems, as the password hash file is somewhere else.
-It also doesn&rsquo;t work yet on macos, as macos also doesn&rsquo;t have a \`/etc/passwd\`/\`/etc/shadow file\`
+
+It also doesn&rsquo;t work yet on macos, as macos also doesn&rsquo;t have a /etc/shadow file
 
 
-<a id="orge23286a"></a>
+<a id="org25ae88f"></a>
 
 # Installation
 
 
-<a id="org7f6b4a7"></a>
+<a id="org6afe503"></a>
 
 ## AUR
 
@@ -60,7 +62,7 @@ or (for yay):
     yay -S yas-git
 
 
-<a id="org3ac9e43"></a>
+<a id="orgd3db12d"></a>
 
 ## crates.io (rusts package manager)
 
@@ -73,7 +75,7 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 
-<a id="orgbb4d594"></a>
+<a id="orgcb48fcc"></a>
 
 ## From the release page
 
@@ -92,7 +94,7 @@ Or you can get the release from the release page with \`-musl\`, note that there
 1.  Put it somewhere in your path, such as /usr/bin
 
 
-<a id="org1720fc7"></a>
+<a id="org75ae67d"></a>
 
 ## compile manually
 
@@ -115,7 +117,7 @@ Or you can get the release from the release page with \`-musl\`, note that there
     chmod u+s yas
 
 
-<a id="org5353508"></a>
+<a id="org62c02c4"></a>
 
 # Usage:
 
@@ -128,7 +130,7 @@ As one can see, there aren&rsquo;t really any options for yas.
 Who would also need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
 
 
-<a id="orgbb5eab1"></a>
+<a id="orgace761a"></a>
 
 # Security
 

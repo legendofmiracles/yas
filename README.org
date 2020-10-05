@@ -8,9 +8,11 @@ yas - a (kind of) sudo replacement
 Yas is only thought for single user systems, not for systems with 3+ users, where some should have more perms, and some less.
 
 ** Platform support
-Has only been tested on linux, for problems please open a issue.
+Has only been tested on linux, for problems/interest on other platforms please open a issue.
+
 I am pretty sure, that yas won't work on BSD systems, as the password hash file is somewhere else.
-It also doesn't work yet on macos, as macos also doesn't have a `/etc/passwd`/`/etc/shadow file`
+
+It also doesn't work yet on macos, as macos also doesn't have a /etc/shadow file
 
 * Installation
 ** AUR
