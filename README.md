@@ -1,21 +1,21 @@
 
 # Table of Contents
 
-1.  [What is this?](#org8a95856)
-2.  [Installation](#org9307576)
-    1.  [AUR](#org494b16f)
-    2.  [crates.io (rusts package manager)](#org5820fa8)
-    3.  [From the release page](#orga6989f6)
-    4.  [compile manually](#org3b6c0cf)
-3.  [Usage:](#orga9ef129)
-4.  [Security](#orgbc244a8)
+1.  [What is this?](#orgae61884)
+2.  [Installation](#orgd2a0eed)
+    1.  [AUR](#orgfd4fe7b)
+    2.  [crates.io (rusts package manager)](#org820ab8f)
+    3.  [From the release page](#org9e4eb59)
+    4.  [compile manually](#org496c08f)
+3.  [Usage:](#orgd496f98)
+4.  [Security](#orgd4da4fe)
 
 yas - a (kind of) sudo replacement
 
 (entire readme is still work in progress)
 
 
-<a id="org8a95856"></a>
+<a id="orgae61884"></a>
 
 # What is this?
 
@@ -25,12 +25,12 @@ yas also can&rsquo;t run commands as any other user, but root.
 In case you really do have a user, that shouldn&rsquo;t be allowed to run stuff as root, this isn&rsquo;t for you.
 
 
-<a id="org9307576"></a>
+<a id="orgd2a0eed"></a>
 
 # Installation
 
 
-<a id="org494b16f"></a>
+<a id="orgfd4fe7b"></a>
 
 ## AUR
 
@@ -46,7 +46,7 @@ or (for yay):
     yay -S yas-git
 
 
-<a id="org5820fa8"></a>
+<a id="org820ab8f"></a>
 
 ## crates.io (rusts package manager)
 
@@ -59,7 +59,7 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 
-<a id="orga6989f6"></a>
+<a id="org9e4eb59"></a>
 
 ## From the release page
 
@@ -78,7 +78,7 @@ Or you can get the release from the release page with \`-musl\`, note that there
 1.  Put it somewhere in your path, such as /usr/bin
 
 
-<a id="org3b6c0cf"></a>
+<a id="org496c08f"></a>
 
 ## compile manually
 
@@ -86,13 +86,13 @@ Or you can get the release from the release page with \`-musl\`, note that there
 2.  Clone the source
 3.  build it in release mode, either with tui or not
 
-\`\`\`
+\`\`
 git clone <https://github.com/alx365/yas.git>
 
 cargo build &#x2013;release # if with tui, add the \`&#x2013;features &ldquo;tui&rdquo;\` flag
 
 strip target/release/yas
-\`\`\`
+\`\`
 
 1.  Change the owner to root
 
@@ -103,7 +103,7 @@ strip target/release/yas
     chmod u+s yas
 
 
-<a id="orga9ef129"></a>
+<a id="orgd496f98"></a>
 
 # Usage:
 
@@ -116,7 +116,7 @@ As one can see, there aren&rsquo;t really any options for yas.
 Who would also need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
 
 
-<a id="orgbc244a8"></a>
+<a id="orgd4da4fe"></a>
 
 # Security
 
