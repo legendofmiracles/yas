@@ -71,33 +71,27 @@ fn tui(hash_struct: Hash, user: String, args: Vec<String>) -> bool {
         Dialog::new()
             .title(format!("Enter password for user {}", user))
             .padding_lrtb(1, 1, 1, 0)
-            .content(
-                EditView::new().secret().on_submit(
-                    move |s: &mut cursive::Cursive, password: &str| {
-                        let is_match = match hash_struct.format {
-                            1..=6 => decode(&hash_struct, password.to_string()),
-                            _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
-                        };
-                        if is_match {
-                            s.set_user_data(true);
-                            s.quit();
-                        } else {
-                            s.add_layer(
-                                Dialog::new()
-                                    .title("Wrong password")
-                                    .content(TextView::new("Wrong password. Nice try"))
-                                    .button("retry", |s: &mut cursive::Cursive| -> _ {
-                                        s.pop_layer();
-                                    }),
-                            );
-                        }
-                    },
-                ), /////////////////////////////////////////////////////////////////////////
-                   // .on_edit_mut(|s: &cursive::Cursive, password: &mut str, _: usize| { //
-                   //     password = "LOLSU"                                              //
-                   // }),                                                                 //
-                   /////////////////////////////////////////////////////////////////////////
-            ),
+            .content(EditView::new().secret().on_submit(
+                move |s: &mut cursive::Cursive, password: &str| {
+                    let is_match = match hash_struct.format {
+                        1..=6 => decode(&hash_struct, password.to_string()),
+                        _ => panic!("unknown encryption method (╯°□°）╯︵ ┻━┻"),
+                    };
+                    if is_match {
+                        s.set_user_data(true);
+                        s.quit();
+                    } else {
+                        s.add_layer(
+                            Dialog::new()
+                                .title("Wrong password")
+                                .content(TextView::new("Wrong password. Nice try"))
+                                .button("retry", |s: &mut cursive::Cursive| -> _ {
+                                    s.pop_layer();
+                                }),
+                        );
+                    }
+                },
+            )),
     );
     siv.run();
     if *siv.user_data().unwrap() {
@@ -107,7 +101,7 @@ fn tui(hash_struct: Hash, user: String, args: Vec<String>) -> bool {
         // 1. i would have to add a new mutable argument, which i can't because the lib only wants 2 args
         // 2. I can't return a boolean to the .submit function
         // Thats why we have to call the function on our own
-        crate::do_the_actual_thing(args.to_vec());
+        return true;
     }
     // This only runs, if the above bool is false, as the code it calls in the statements, it definitly quits the program
     return false;

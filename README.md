@@ -1,19 +1,21 @@
 
 # Table of Contents
 
-1.  [What is this?](#org49160fb)
-2.  [Installation](#org3ad6a8d)
-    1.  [AUR](#orgbfcbae9)
-    2.  [crates.io (rusts package manager)](#org4645c88)
-    3.  [From the release page](#org51cbab3)
-3.  [Usage:](#org1b64e2b)
-4.  [Security](#org896320c)
+1.  [What is this?](#org039e807)
+2.  [Installation](#org7b5fc55)
+    1.  [AUR](#orgabe5c49)
+    2.  [crates.io (rusts package manager)](#org3150df7)
+    3.  [From the release page](#org9dc2ca6)
+    4.  [compile manually](#org07ba02b)
+3.  [Usage:](#org0aa7a05)
+4.  [Security](#org7f13a05)
 
 yas - a (kind of) sudo replacement
+
 (entire readme is still work in progress)
 
 
-<a id="org49160fb"></a>
+<a id="org039e807"></a>
 
 # What is this?
 
@@ -23,12 +25,12 @@ yas also can&rsquo;t run commands as any other user, but root.
 In case you really do have a user, that shouldn&rsquo;t be allowed to run stuff as root, this isn&rsquo;t for you.
 
 
-<a id="org3ad6a8d"></a>
+<a id="org7b5fc55"></a>
 
 # Installation
 
 
-<a id="orgbfcbae9"></a>
+<a id="orgabe5c49"></a>
 
 ## AUR
 
@@ -44,7 +46,7 @@ or (for yay):
     yay -S yas-git
 
 
-<a id="org4645c88"></a>
+<a id="org3150df7"></a>
 
 ## crates.io (rusts package manager)
 
@@ -57,12 +59,12 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 
-<a id="org51cbab3"></a>
+<a id="org9dc2ca6"></a>
 
 ## From the release page
 
 If you get a libc error when running, you should compile it from source, this will happen espcially often with distros that are debian based.
-Or i could also start distributing builds, built with musl.
+Or you can get the release from the release page with \`-musl\`, note that there isn&rsquo;t a tui build for that, because ncurses fails to compile. You will have to compile it manually then.
 
 1.  Download a binary
 2.  Change the owner to root
@@ -76,7 +78,28 @@ Or i could also start distributing builds, built with musl.
 1.  Put it somewhere in your path, such as /usr/bin
 
 
-<a id="org1b64e2b"></a>
+<a id="org07ba02b"></a>
+
+## compile manually
+
+1.  Install rust (<https://www.rust-lang.org/>)
+2.  Clone the source
+3.  build it in release mode, either with tui or not
+
+    git clone https://github.com/alx365/yas.git
+    cargo build --release # if with tui, add the `--features "tui"` flag
+    strip target/release/yas
+
+1.  Change the owner to root
+
+    chmod root yas
+
+1.  Set the suid bit
+
+    chmod u+s yas
+
+
+<a id="org0aa7a05"></a>
 
 # Usage:
 
@@ -89,7 +112,7 @@ As one can see, there aren&rsquo;t really any options for yas.
 Who would also need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
 
 
-<a id="org896320c"></a>
+<a id="org7f13a05"></a>
 
 # Security
 

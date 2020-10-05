@@ -1,4 +1,5 @@
 yas - a (kind of) sudo replacement
+
 (entire readme is still work in progress)
 * What is this?
     yas, or 'yet another sudo', is kind of a sudo replacement, written in rust and without really any configuration options or not needed features.
@@ -39,7 +40,7 @@ su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 ** From the release page
 If you get a libc error when running, you should compile it from source, this will happen espcially often with distros that are debian based.
-Or i could also start distributing builds, built with musl.
+Or you can get the release from the release page with `-musl`, note that there isn't a tui build for that, because ncurses fails to compile. You will have to compile it manually then.
 
 1. Download a binary
 2. Change the owner to root
@@ -55,6 +56,26 @@ chmod u+s yas
 #+END_SRC
 
 4. Put it somewhere in your path, such as /usr/bin
+** compile manually
+1. Install rust (https://www.rust-lang.org/)
+2. Clone the source
+3. build it in release mode, either with tui or not
+#+BEGIN_SRC bash
+git clone https://github.com/alx365/yas.git
+cargo build --release # if with tui, add the `--features "tui"` flag
+strip target/release/yas
+#+END_SRC
+4. Change the owner to root
+
+#+BEGIN_SRC
+chmod root yas
+#+END_SRC
+
+5. Set the suid bit
+
+#+BEGIN_SRC
+chmod u+s yas
+#+END_SRC
 
 * Usage:
     #+BEGIN_SRC
