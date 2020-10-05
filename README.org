@@ -1,11 +1,16 @@
 yas - a (kind of) sudo replacement
 
-(entire readme is still work in progress)
 * What is this?
-    yas, or 'yet another sudo', is kind of a sudo replacement, written in rust and without really any configuration options or not needed features.
-    It is intended for single user systems only, as it works out of the box, with no configuration needed, but you also can't restrict a user from running stuff as root.
+    yas, or 'yet another sudo', is kind of a sudo replacement, written in rust and without really any configuration options or not needed features. (except for the tui version)
     yas also can't run commands as any other user, but root.
-    In case you really do have a user, that shouldn't be allowed to run stuff as root, this isn't for you.
+
+** Why only a 'kind of' replacement?
+Yas is only thought for single user systems, not for systems with 3+ users, where some should have more perms, and some less.
+
+** Platform support
+Has only been tested on linux, for problems please open a issue.
+I am pretty sure, that yas won't work on BSD systems, as the password hash file is somewhere else.
+It also doesn't work yet on macos, as macos also doesn't have a `/etc/passwd`/`/etc/shadow file`
 
 * Installation
 ** AUR
@@ -46,7 +51,7 @@ Or you can get the release from the release page with `-musl`, note that there i
 2. Change the owner to root
   
 #+BEGIN_SRC
-chmod root yas
+chown root yas
 #+END_SRC
 
 3. Set the suid bit
@@ -62,20 +67,18 @@ chmod u+s yas
 3. build it in release mode, either with tui or not
 
 #+BEGIN_SRC
-
 git clone https://github.com/alx365/yas.git
 
 cargo build --release # if with tui, add the `--features "tui"` flag
 
 strip target/release/yas
 
-
 #+END_SRC
 
 4. Change the owner to root
 
 #+BEGIN_SRC
-chmod root yas
+chown root yas
 #+END_SRC
 
 5. Set the suid bit
@@ -103,4 +106,6 @@ chmod u+s yas
     #+END_QUOTE
     Mental Outlaw on YouTube
 
-   Yas really doesn't try, and doesn't want to be the most secure option, but instead rather the fastest (as in no added security delay) or the *bloat free* option.
+   Yas really doesn't try, and doesn't want to be the most secure option, but instead rather the fastest (as in no added security delay) or the *bloat free* option (if you ignore the tui version .-.).
+
+   Yas also doesn't use pam like any other software that priv escalates, i personnaly see this as a positive, because yas doesn't depend on it.

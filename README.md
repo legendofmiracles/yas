@@ -1,36 +1,50 @@
 
 # Table of Contents
 
-1.  [What is this?](#org4ca6d6d)
-2.  [Installation](#org513a12f)
-    1.  [AUR](#orge3b7c7f)
-    2.  [crates.io (rusts package manager)](#org47297cf)
-    3.  [From the release page](#org59a672a)
-    4.  [compile manually](#org62a3da9)
-3.  [Usage:](#orga865a46)
-4.  [Security](#orgf4539d0)
+1.  [What is this?](#orgce73af9)
+    1.  [Why only a &rsquo;kind of&rsquo; replacement?](#org3cd6b27)
+    2.  [Platform support](#org26cb271)
+2.  [Installation](#orge23286a)
+    1.  [AUR](#org7f6b4a7)
+    2.  [crates.io (rusts package manager)](#org3ac9e43)
+    3.  [From the release page](#orgbb4d594)
+    4.  [compile manually](#org1720fc7)
+3.  [Usage:](#org5353508)
+4.  [Security](#orgbb5eab1)
 
 yas - a (kind of) sudo replacement
 
-(entire readme is still work in progress)
 
-
-<a id="org4ca6d6d"></a>
+<a id="orgce73af9"></a>
 
 # What is this?
 
-yas, or &rsquo;yet another sudo&rsquo;, is kind of a sudo replacement, written in rust and without really any configuration options or not needed features.
-It is intended for single user systems only, as it works out of the box, with no configuration needed, but you also can&rsquo;t restrict a user from running stuff as root.
+yas, or &rsquo;yet another sudo&rsquo;, is kind of a sudo replacement, written in rust and without really any configuration options or not needed features. (except for the tui version)
 yas also can&rsquo;t run commands as any other user, but root.
-In case you really do have a user, that shouldn&rsquo;t be allowed to run stuff as root, this isn&rsquo;t for you.
 
 
-<a id="org513a12f"></a>
+<a id="org3cd6b27"></a>
+
+## Why only a &rsquo;kind of&rsquo; replacement?
+
+Yas is only thought for single user systems, not for systems with 3+ users, where some should have more perms, and some less.
+
+
+<a id="org26cb271"></a>
+
+## Platform support
+
+Has only been tested on linux, for problems please open a issue.
+I am pretty sure, that yas won&rsquo;t work on BSD systems, as the password hash file is somewhere else.
+It also doesn&rsquo;t work yet on macos, as macos also doesn&rsquo;t have a \`/etc/passwd\`/\`/etc/shadow file\`
+
+
+<a id="orge23286a"></a>
 
 # Installation
 
 
-<a id="orge3b7c7f"></a>
+<a id="org7f6b4a7"></a>
 
 ## AUR
 
@@ -46,7 +60,7 @@ or (for yay):
     yay -S yas-git
 
 
-<a id="org47297cf"></a>
+<a id="org3ac9e43"></a>
 
 ## crates.io (rusts package manager)
 
@@ -59,7 +73,7 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 
-<a id="org59a672a"></a>
+<a id="orgbb4d594"></a>
 
 ## From the release page
 
@@ -69,7 +83,7 @@ Or you can get the release from the release page with \`-musl\`, note that there
 1.  Download a binary
 2.  Change the owner to root
 
-    chmod root yas
+    chown root yas
 
 1.  Set the suid bit
 
@@ -78,7 +92,7 @@ Or you can get the release from the release page with \`-musl\`, note that there
 1.  Put it somewhere in your path, such as /usr/bin
 
 
-<a id="org62a3da9"></a>
+<a id="org1720fc7"></a>
 
 ## compile manually
 
@@ -86,7 +100,6 @@ Or you can get the release from the release page with \`-musl\`, note that there
 2.  Clone the source
 3.  build it in release mode, either with tui or not
 
-    
     git clone https://github.com/alx365/yas.git
     
     cargo build --release # if with tui, add the `--features "tui"` flag
@@ -95,14 +108,14 @@ Or you can get the release from the release page with \`-musl\`, note that there
 
 1.  Change the owner to root
 
-    chmod root yas
+    chown root yas
 
 1.  Set the suid bit
 
     chmod u+s yas
 
 
-<a id="orga865a46"></a>
+<a id="org5353508"></a>
 
 # Usage:
 
@@ -115,7 +128,7 @@ As one can see, there aren&rsquo;t really any options for yas.
 Who would also need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
 
 
-<a id="orgf4539d0"></a>
+<a id="orgbb5eab1"></a>
 
 # Security
 
@@ -126,5 +139,7 @@ Who would also need a flag, to edit a file, if nobody ever uses that, and instea
 
 Mental Outlaw on YouTube
 
-Yas really doesn&rsquo;t try, and doesn&rsquo;t want to be the most secure option, but instead rather the fastest (as in no added security delay) or the **bloat free** option.
+Yas really doesn&rsquo;t try, and doesn&rsquo;t want to be the most secure option, but instead rather the fastest (as in no added security delay) or the **bloat free** option (if you ignore the tui version .-.).
+
+Yas also doesn&rsquo;t use pam like any other software that priv escalates, i personnaly see this as a positive, because yas doesn&rsquo;t depend on it.
 
