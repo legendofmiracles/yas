@@ -1,21 +1,21 @@
 
 # Table of Contents
 
-1.  [What is this?](#org039e807)
-2.  [Installation](#org7b5fc55)
-    1.  [AUR](#orgabe5c49)
-    2.  [crates.io (rusts package manager)](#org3150df7)
-    3.  [From the release page](#org9dc2ca6)
-    4.  [compile manually](#org07ba02b)
-3.  [Usage:](#org0aa7a05)
-4.  [Security](#org7f13a05)
+1.  [What is this?](#org2f844a6)
+2.  [Installation](#org9b01921)
+    1.  [AUR](#org8215cd5)
+    2.  [crates.io (rusts package manager)](#org65343a9)
+    3.  [From the release page](#orgee1d3ce)
+    4.  [compile manually](#org25428f5)
+3.  [Usage:](#org2a66fdf)
+4.  [Security](#orga3c27d1)
 
 yas - a (kind of) sudo replacement
 
 (entire readme is still work in progress)
 
 
-<a id="org039e807"></a>
+<a id="org2f844a6"></a>
 
 # What is this?
 
@@ -25,12 +25,12 @@ yas also can&rsquo;t run commands as any other user, but root.
 In case you really do have a user, that shouldn&rsquo;t be allowed to run stuff as root, this isn&rsquo;t for you.
 
 
-<a id="org7b5fc55"></a>
+<a id="org9b01921"></a>
 
 # Installation
 
 
-<a id="orgabe5c49"></a>
+<a id="org8215cd5"></a>
 
 ## AUR
 
@@ -46,7 +46,7 @@ or (for yay):
     yay -S yas-git
 
 
-<a id="org3150df7"></a>
+<a id="org65343a9"></a>
 
 ## crates.io (rusts package manager)
 
@@ -59,7 +59,7 @@ NOTE: The suid bit will not be set, you will manually have to set it for yas to 
     su -c "chown root ~/.cargo/bin/yas && chmod u+s ~/.cargo/bin/yas"
 
 
-<a id="org9dc2ca6"></a>
+<a id="orgee1d3ce"></a>
 
 ## From the release page
 
@@ -78,7 +78,7 @@ Or you can get the release from the release page with \`-musl\`, note that there
 1.  Put it somewhere in your path, such as /usr/bin
 
 
-<a id="org07ba02b"></a>
+<a id="org25428f5"></a>
 
 ## compile manually
 
@@ -99,7 +99,7 @@ Or you can get the release from the release page with \`-musl\`, note that there
     chmod u+s yas
 
 
-<a id="org0aa7a05"></a>
+<a id="org2a66fdf"></a>
 
 # Usage:
 
@@ -112,7 +112,7 @@ As one can see, there aren&rsquo;t really any options for yas.
 Who would also need a flag, to edit a file, if nobody ever uses that, and instead just runs \`sudo <editor> <file>\`
 
 
-<a id="org7f13a05"></a>
+<a id="orga3c27d1"></a>
 
 # Security
 
