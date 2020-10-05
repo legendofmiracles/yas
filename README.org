@@ -20,7 +20,7 @@ If you get a libc error when running, you should compile it from source, this wi
 
 Or you can get the release from the release page with `-musl`, note that there isn't a tui build for that, because ncurses fails to compile. You will have to compile it manually then.
 
-And the builds for musl will probably often be out of date...
+The builds for musl will probably often be out of date...
 
 ** AUR
 
@@ -68,7 +68,7 @@ chmod u+s yas
 #+END_SRC
 
 4. Put it somewhere in your path, such as /usr/bin
-** compile manually
+** Compile manually
 1. Install rust (https://www.rust-lang.org/)
 2. Clone the source
 3. build it in release mode, either with tui or not
