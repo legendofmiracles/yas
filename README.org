@@ -63,7 +63,9 @@ chmod u+s yas
 
 #+BEGIN_SRC
 git clone https://github.com/alx365/yas.git
+
 cargo build --release # if with tui, add the `--features "tui"` flag
+
 strip target/release/yas
 #+END_SRC
 
