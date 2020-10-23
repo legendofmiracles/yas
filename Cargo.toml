@@ -13,7 +13,7 @@ license = "MIT"
 users = "0.10"
 pwhash = "0.3.1"
 rpassword = "5.0"
-cursive = {optional = true, version = "0.15.0"}
+cursive = {optional = true, version = "0.15.0", features=['toml']}
 
 [features]
 tui = ["cursive"]

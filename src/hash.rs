@@ -5,7 +5,7 @@ struct Hash {
     salt: String,
 }
 
-pub fn check_passwd(args: &Vec<String>, user: String) -> bool {
+pub fn check_passwd(user: String) -> bool {
     let contents: String = fs::read_to_string("/etc/shadow")
         .expect("yas: error when reading from /etc/shadow file (╯°□°）╯︵ ┻━┻");
 
@@ -24,7 +24,7 @@ pub fn check_passwd(args: &Vec<String>, user: String) -> bool {
         salt: hash_non_struct[2].to_string(),
     };
     #[cfg(feature = "tui")]
-    return tui(hash_struct, user, args.to_vec());
+    return tui(hash_struct, user);
     #[cfg(not(feature = "tui"))]
     return no_tui(hash_struct, user);
 }
@@ -64,8 +64,9 @@ fn no_tui(hash_struct: Hash, user: String) -> bool {
     return false;
 }
 #[cfg(feature = "tui")]
-fn tui(hash_struct: Hash, user: String, args: Vec<String>) -> bool {
-    use cursive::views::{Dialog, EditView, TextView};
+fn tui(hash_struct: Hash, user: String) -> bool {
+    use cursive::view::Nameable;
+    use cursive::views::{Dialog, EditView, TextView, ViewRef};
     let mut siv = cursive::default();
     siv.add_layer(
         Dialog::new()
@@ -87,20 +88,25 @@ fn tui(hash_struct: Hash, user: String, args: Vec<String>) -> bool {
                                 .content(TextView::new("Wrong password. Nice try"))
                                 .button("retry", |s: &mut cursive::Cursive| -> _ {
                                     s.pop_layer();
+                                    // let mut view: ViewRef<EditView> =
+                                    //     s.find_name("prompt").unwrap();
+                                    // view.set_content("bar");
                                 }),
                         );
                     }
                 },
-            )),
+            ))
+            .with_name("prompt"),
     );
+    siv.load_theme_file(format!(
+        "{}/.config/yas.toml",
+        std::env::var("HOME").unwrap()
+    ))
+    .unwrap_or_default();
     siv.run();
     if *siv.user_data().unwrap() {
         std::mem::drop(siv);
         // This function quits the program and doesn't return control
-        // And i can't return a bool, because
-        // 1. i would have to add a new mutable argument, which i can't because the lib only wants 2 args
-        // 2. I can't return a boolean to the .submit function
-        // Thats why we have to call the function on our own
         return true;
     }
     // This only runs, if the above bool is false, as the code it calls in the statements, it definitly quits the program

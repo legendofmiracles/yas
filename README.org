@@ -116,3 +116,7 @@ chmod u+s yas
    Yas really doesn't try, and doesn't want to be the most secure option, but instead rather the fastest (as in no added security delay) or the *bloat free* option (if you ignore the tui version .-.).
 
    Yas also doesn't use pam like any other software that priv escalates, i personnaly see this as a positive, because yas doesn't depend on it.
+
+* Configuration
+You can configure the tui version, with a custom color scheme, have a look at the libraries documentation for that (https://docs.rs/cursive_core/0.1.1/cursive_core/theme/index.html#themes).
+Note, that the lastest release doesn't support it yet, so you'll have to get the git aur package or compile from source.

@@ -37,7 +37,7 @@ fn main() {
     }
     let matches: bool;
     if requires {
-        matches = hash::check_passwd(&args, user.name().to_str().unwrap().to_string());
+        matches = hash::check_passwd(user.name().to_str().unwrap().to_string());
     } else {
         matches = true;
     }
